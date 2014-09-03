@@ -1,54 +1,30 @@
-/* -8- ***********************************************************************
- *
- *  main.cpp
- *
- *                                          Created by ogata on 11/26/2013
- *                 Copyright (c) 2013 ABEJA Inc. All rights reserved.
- * ******************************************************************** -8- */
+#include <boost/move/utility.hpp>
+#include <boost/log/sources/logger.hpp>
+#include <boost/log/sources/record_ostream.hpp>
+#include <boost/log/sources/global_logger_storage.hpp>
+#include <boost/log/utility/setup/file.hpp>
+#include <boost/log/utility/setup/common_attributes.hpp>
 
-#include "cspxlog.h"
+namespace logging = boost::log;
+namespace sinks = boost::log::sinks;
+namespace src = boost::log::sources;
+namespace expr = boost::log::expressions;
+namespace attrs = boost::log::attributes;
+namespace keywords = boost::log::keywords;
 
-void test_logging()
-{
-  boost::log::sources::severity_logger< cspxlog::severity_level > slg;
-  BOOST_LOG_FUNCTION();
-  BOOST_LOG_SEV(slg, cspxlog::ERROR) << "test";
+BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(global_logger, src::logger_mt)
+
+void init() {
+
+    logging::add_file_log("sample.log");
+    logging::add_common_attributes();
+
 }
 
-void test_logging2()
-{
-  boost::log::sources::severity_logger< cspxlog::severity_level > slg;
-  BOOST_LOG_SEV(slg, cspxlog::ERROR) << "test2";
-}
+int main(int argc, char* argv[]) {
 
-void test_setLoggingLevel()
-{
-  BOOST_LOG_FUNCTION();
-  std::cout << "---- start test_setLoggingLevel ----" << std::endl;
-  BOOST_LOG_SEV(app_logger::get(), cspxlog::DEBUG) << "first debug";
-  BOOST_LOG_SEV(app_logger::get(), cspxlog::TRACE) << "first trace";
+    src::logger_mt& lg = global_logger::get();
+    init();
 
-  std::cout << "set filter level \"DEBUG\"" << std::endl;
-  cspxlog::setLoggingLevel(cspxlog::DEBUG);
-
-  BOOST_LOG_SEV(app_logger::get(), cspxlog::DEBUG) << "second debug"; // printed
-  BOOST_LOG_SEV(app_logger::get(), cspxlog::TRACE) << "second trace"; // filtered
-  std::cout << "---- end test_setLoggingLevel ----" << std::endl;
-}
-
-int main(int argc, char *argv[])
-{
-  // initalize
-  cspxlog::initLogging();
-
-  // set __LINE__ and __FUNCTION__
-  BOOST_LOG_FUNCTION();
-
-  test_logging();
-  test_logging2();
-  
-  test_setLoggingLevel();
-
-  std::cout << "---- end ----" << std::endl;
-  return 0;
+    BOOST_LOG(lg) << "Hello World!";
 }
