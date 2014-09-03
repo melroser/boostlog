@@ -20,7 +20,7 @@ void init_logs() {
 
 int main() {
     int i = 1;
-    L_ << "this is a simple message " << i;
+    LOG << "this is a simple message " << i;
     std::string hello = "hello";
-    L_ << hello << " world";
+    LOG << hello << " world";
 }
