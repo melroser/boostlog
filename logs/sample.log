@@ -1,4 +1,0 @@
- [] [int main(int, char**) (src/main.cpp:45)->void test_logging() (src/main.cpp:14)] <> test
- [] [int main(int, char**) (src/main.cpp:45)] <> test2
- [] [int main(int, char**) (src/main.cpp:45)->void test_setLoggingLevel() (src/main.cpp:26)] <> first debug
- [] [int main(int, char**) (src/main.cpp:45)->void test_setLoggingLevel() (src/main.cpp:26)] <> first trace
