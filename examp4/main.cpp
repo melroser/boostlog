@@ -49,6 +49,6 @@ int main(int argc, char *argv[])
   
   test_setLoggingLevel();
 
-  std::cout << "---- end ----" << std::endl;
+  jjj
   return 0;
 }
